@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta name="author" content="" />
+		<meta name="copyright" content="" />
+		<meta name="robots" content="follow,index" />
+		
+		<meta name="keywords" content="WYSIWYG" lang="en-us" />
+		<meta name="description" content="WYSIWYG" />
+		<title>WYSIWYG</title>
+
+		<link href="css/styles.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="js/fo.js"></script>
+		
+	</head>
+<body>
+	<div id="editor"></div>
+	<div id="result"></div>
+	<div id="result-html"></div>
+	<script type="text/javascript">
+
+		var rand = Math.floor(Math.random()*1000000)
+		var swf = new FlashObject("swf/Project.swf?tmp=" + rand, "editorSWF", "600", "230", "9", "#FFFFFF");
+		window.onload = function() {
+			swf.addVariable("callback", "onTextChange");
+			swf.write("editor");
+			setTimeout("setDefaultText()", 2000);
+		}
+		
+		function onTextChange(str) {
+			document.getElementById("result").innerHTML = str;
+			document.getElementById("result-html").innerHTML = str.replace(/</gi, "&lt;");
+		}
+		function setDefaultText() {
+			if(document.getElementById("editorSWF").setText) {
+				document.getElementById("editorSWF").setText('<font color="#FF0000">Default</font> text</font>');
+			}
+		}
+
+	</script>
+</body>
+</html>
